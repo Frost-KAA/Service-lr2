@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование жанра</title>
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+</head>
+<body>
+<div th:if="${genre.nameGenre != ''}"><h2>Редактирование жанра</h2></div>
+<div th:unless="${genre.nameGenre != ''}"><h2>Создание жанра</h2></div>
+<div class="container">
+    <form action="#" th:action="@{/genres/genre_edit}" th:object="${genre}" method="post">
+        <div>
+            <input type="hidden" th:field="*{idGenre}" />
+            <div>
+                <label class="label" for="nameGenre">Название</label>
+                <input class="input" type="text" th:field="*{nameGenre}" id="nameGenre" placeholder="Название">
+            </div>
+            <div>
+                <label class="label" for="descGenre">Описание</label>
+                <input class="input" type="text" th:field="*{descGenre}" id="descGenre" placeholder="Описание">
+            </div>
+        </div>
+        <br/>
+        <div>
+            <label class="label"><b>Фильмы:</b></label>
+            <th:block th:each="film: ${films_list}">
+                <div>
+                    <input class="checkbox" type="checkbox" th:field="*{films}" th:text="${film.nameFilm}" th:value="${film.idFilm}" />
+                </div>
+            </th:block>
+        </div>
+
+        <br/>
+
+        <div th:if="${genre.nameGenre != ''}"><input type="submit" value="Редактировать"></div>
+        <div th:unless="${genre.nameGenre != ''}"><input type="submit" value="Создать"></div>
+    </form>
+</div>
+</body>
+</html>

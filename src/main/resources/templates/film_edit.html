@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование фильма</title>
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+</head>
+<body>
+<div th:if="${film.nameFilm != ''}"><h2>Редактирование фильма</h2></div>
+<div th:unless="${film.nameFilm != ''}"><h2>Создание фильма</h2></div>
+<div class="container">
+    <form action="#" th:action="@{/films/film_edit}" th:object="${film}" method="post">
+        <div>
+            <input type="hidden" th:field="*{idFilm}" />
+            <div>
+                <label class="label" for="nameFilm">Название</label>
+                <input class="input" type="text" th:field="*{nameFilm}" id="nameFilm" placeholder="Название">
+            </div>
+            <div>
+                <label class="label" for="descFilm">Описание</label>
+                <input class="input" type="text" th:field="*{descFilm}" id="descFilm" placeholder="Описание">
+            </div>
+            <div>
+                <label class="label" for="yearFilm">Год</label>
+                <input class="input" type="number" th:field="*{yearFilm}" id="yearFilm" placeholder="Year">
+            </div>
+            <div>
+                <label class="label" for="runtimeFilm">Длительность</label>
+                <input class="input" type="number" th:field="*{runtimeFilm}" id="runtimeFilm" placeholder="Runtime">
+            </div>
+           <div>
+               <label class="label" for="scoreFilm">Оценка</label>
+               <input class="input" type="text" th:field="*{scoreFilm}" id="scoreFilm" placeholder="Score">
+           </div>
+        </div>
+        <div>
+            <label class="label">Режиссер</label>
+            <select class="input" th:field="*{directorFilm}">
+                <option th:each="director : ${directors_list}"
+                        th:value="${director.idDirector}"
+                        th:text="${director.nameDirector + ' ' + director.surnameDirector}"></option>
+            </select>
+        </div>
+        <br/>
+        <div>
+            <label class="label"><b>Жанры:</b></label>
+            <th:block th:each="genre: ${genres_list}">
+                <div>
+                    <input class="checkbox" type="checkbox" th:field="*{genres}" th:text="${genre.nameGenre}" th:value="${genre.idGenre}" />
+                </div>
+            </th:block>
+        </div>
+        <br/>
+        <div>
+            <label class="label"><b>Актеры</b></label>
+            <th:block th:each="actor: ${actors_list}">
+                <div>
+                    <input class="checkbox" type="checkbox" th:field="*{actors}" th:text="${actor.nameActor + ' ' + actor.surnameActor}" th:value="${actor.idActor}" />
+                </div>
+            </th:block>
+        </div>
+        <br/>
+
+        <div th:if="${film.nameFilm != ''}"><input type="submit" value="Редактировать"></div>
+        <div th:unless="${film.nameFilm != ''}"><input type="submit" value="Создать"></div>
+    </form>
+</div>
+</body>
+</html>

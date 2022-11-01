@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Film by Kochetkova</title>
+        <link rel="stylesheet" type="text/css" href="../styles.css">
+    </head>
+    <body>
+        <div>
+            <a href="/films" class="pages">Фильмы</a>
+            <a href="/genres" class="pages">Жанры</a>
+            <a href="/directors" class="pages">Режиссеры</a>
+            <a href="/actors" class="pages"><b>Актеры</b></a>
+            <a href="/view" class="pages">Представление</a>
+        </div>
+        <div class="box">
+            <h1 th:text="${director.getNameDirector() + ' ' + director.getSurnameDirector()}"></h1>
+            <p>
+                <b>Дата рождения: </b>
+                <span th:text="${director.birthdayDirector}"></span>
+            </p>
+            <p>
+                <b>Начало карьеры: </b>
+                <span th:text="${director.careerDirector}"></span>
+            </p>
+            <div>
+                <p><b>Фильмы: </b></p>
+                <th:block th:each="film:${director.films}">
+                    <p><a th:href="@{'/films/'+${film.getIdFilm()}}"
+                          th:text="${film.getNameFilm()}"></a></p>
+                </th:block>
+            </div>
+            <div>
+                <button><a th:href="@{'/directors/director_edit/'+${director.idDirector}}">Редактировать</a></button>
+                <button><a th:href="@{'/directors/director_delete/'+${director.idDirector}}">Удалить</a></button>
+            </div>
+        </div>
+    </body>
+</html>

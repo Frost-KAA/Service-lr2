@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование режиссера</title>
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+</head>
+<body>
+
+<div th:if="${director.nameDirector != ''}"><h2>Редактирование фильма</h2></div>
+<div th:unless="${director.nameDirector != ''}"><h2>Создание фильма</h2></div>
+
+<div class="container">
+    <form action="#" th:action="@{/directors/director_edit}" th:object="${director}" method="post">
+        <input type="hidden" th:field="*{idDirector}" />
+        <div>
+            <label class="label" for="nameDirector">Имя</label>
+            <input class="input" type="text" th:field="*{nameDirector}" id="nameDirector" placeholder="Имя">
+        </div>
+        <div>
+            <label class="label" for="surnameDirector">Фамилия</label>
+            <input class="input" type="text" th:field="*{surnameDirector}" id="surnameDirector" placeholder="Фамилия">
+        </div>
+        <div>
+            <label class="label" for="birthdayDirector">Дата рождения</label>
+            <input class="input" type="datetime" th:field="*{birthdayDirector}" id="birthdayDirector" placeholder="Birthday">
+        </div>
+        <div>
+            <label class="label" for="careerDirector">Начало карьеры</label>
+            <input class="input" type="datetime" th:field="*{careerDirector}" id="careerDirector" placeholder="Career">
+        </div>
+        <br/>
+
+<!--        <div>-->
+<!--            <label class="label"><b>Фильмы:</b></label>-->
+<!--            <th:block th:each="film: ${films_list}">-->
+<!--                <div>-->
+<!--                    <input class="checkbox" type="checkbox" th:field="*{films}" th:text="${film.nameFilm}" th:value="${film.idFilm}" />-->
+<!--                </div>-->
+<!--            </th:block>-->
+<!--        </div>-->
+<!--        <br/>-->
+
+        <div th:if="${director.nameDirector != ''}"><input type="submit" value="Редактировать"></div>
+        <div th:unless="${director.nameDirector != ''}"><input type="submit" value="Создать"></div>
+    </form>
+</div>
+</body>
+</html>
